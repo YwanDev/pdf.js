@@ -23,14 +23,14 @@ class ProxyHandler {
     // script may add some properties to the object
     if (prop in obj._expandos) {
       const val = obj._expandos[prop];
-      return typeof val === "function" ? Function.prototype.bind.bind(val)(obj) : val;
+      return typeof val === "function" ? Function.prototype.bind.call(val, obj) : val;
     }
 
     if (typeof prop === "string" && !prop.startsWith("_") && prop in obj) {
       // return only public properties
       // i.e. the ones not starting with a '_'
       const val = obj[prop];
-      return typeof val === "function" ? Function.prototype.bind.bind(val)(obj) : val;
+      return typeof val === "function" ? Function.prototype.bind.call(val, obj) : val;
     }
 
     return undefined;
